@@ -530,16 +530,12 @@ IMPORTANT: Do NOT quote specific prices. Keep it warm and inspiring. Make the cl
 
     if (data.error) {
       isLoading = false;
+      const errMsg = data.error.message || "Unknown error";
       const errType = data.error.type || "";
-      const errMsg  = data.error.message || "";
-      if (errType === "authentication_error" || errMsg.includes("x-api-key") || errMsg.includes("API key")) {
-        showResult("❌ API Key Error — Your API key is invalid or expired. Please click Reset, go through setup again, and paste your new API key from console.anthropic.com");
-      } else if (errMsg.includes("credit") || errMsg.includes("billing") || errType === "permission_error") {
-        showResult("❌ Billing Error — Your Anthropic account needs credits. Go to console.anthropic.com → Billing → Add credits. USD $5 covers hundreds of itineraries.");
-      } else if (errType === "rate_limit_error") {
-        showResult("❌ Too many requests at once. Please wait 1 minute and try again.");
+      if (errType === "rate_limit_error") {
+        showResult("❌ Too busy right now. Please wait 1 minute and try again, or call us on 1300 844 555.");
       } else {
-        showResult("❌ Error: " + errMsg + ". Please call us on 1300 844 555 and we will create your itinerary personally!");
+        showResult("❌ Sorry, we could not generate your itinerary right now. Please call us on 1300 844 555 or WhatsApp 61413231565 and we will create one for you personally! (Error: " + errMsg + ")");
       }
       return;
     }
